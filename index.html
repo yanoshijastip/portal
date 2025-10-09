@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Admin Jastip</title>
+    <style>
+        /* --- Import Font dari Google --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        /* --- Variabel Warna & Reset CSS --- */
+        :root {
+            --bg-color: #121212;
+            --card-color: #1e1e1e;
+            --primary-text: #ffffff;
+            --secondary-text: #b3b3b3;
+            --accent-color: #1db954;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --button-text: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* --- Gaya Dasar Body --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            color: var(--primary-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Kontainer Utama --- */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out forwards;
+        }
+
+        /* --- Gaya Kategori Menu --- */
+        .category {
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .category:nth-of-type(1) {
+            animation-delay: 0.2s;
+        }
+        .category:nth-of-type(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .category h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: left;
+            color: var(--secondary-text);
+        }
+
+        /* --- Grid Menu --- */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* --- Item Menu (Kotak) --- */
+        .menu-item {
+            background: var(--card-color);
+            padding: 25px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--primary-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .menu-item img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .menu-item span {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* --- Tombol Utama --- */
+        .main-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--button-text);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        .main-button:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        /* --- Animasi --- */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* --- Desain Responsif untuk Mobile --- */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .category h2 {
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            .grid-menu {
+                grid-template-columns: 1fr; /* Mengubah grid menjadi 1 kolom */
+                gap: 15px;
+            }
+            
+            .menu-item span {
+                font-size: 0.9rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Portal Admin Jastip</h1>
+        </header>
+
+        <section class="category">
+            <h2>Cek Barang</h2>
+            <div class="grid-menu">
+                <a href="https://cekbarang.netlify.app/" target="_blank" class="menu-item">
+                    <img src="https://api.iconify.design/ph:package-duotone.svg?color=white" alt="Ikon Aplikasi Cek Barang">
+                    <span>Aplikasi Cek Barang</span>
+                </a>
+                <a href="https://yanoshijapan.github.io/dashboardcek/" target="_blank" class="menu-item">
+                     <img src="https://api.iconify.design/ph:chart-bar-duotone.svg?color=white" alt="Ikon Dashboard Cek Barang">
+                    <span>Dashboard Cek Barang</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="category">
+            <h2>Website dan Live Chat</h2>
+            <div class="grid-menu">
+                <a href="https://yanoshijastip.github.io/admin/" target="_blank" class="menu-item">
+                    <img src="https://api.iconify.design/ph:chats-circle-duotone.svg?color=white" alt="Ikon Admin Live Chat">
+                    <span>Admin Live Chat</span>
+                </a>
+                <a href="https://jastipyanoshi.netlify.app/" target="_blank" class="menu-item">
+                    <img src="https://api.iconify.design/ph:globe-duotone.svg?color=white" alt="Ikon Buka Website">
+                    <span>Buka Website</span>
+                </a>
+            </div>
+        </section>
+        
+        <a href="https://docs.google.com/spreadsheets/d/15CtlzSn56c1oTL_FhayaumWPb6ZVXlE4b7GZ040_QH0/edit?gid=1011295621#gid=1011295621" class="main-button">Lihat Database</a>
+
+    </div>
+
+</body>
+</html>
