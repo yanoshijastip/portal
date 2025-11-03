@@ -14,7 +14,7 @@
             --card-color: #1e1e1e;
             --primary-text: #ffffff;
             --secondary-text: #b3b3b3;
-            --accent-color: #1db954;
+            --accent-color: #1db954; /* Alternatif: #3498db */
             --shadow-color: rgba(0, 0, 0, 0.5);
             --button-text: #000000;
         }
@@ -58,24 +58,34 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
+        /* Animasi delay untuk setiap section */
         .category:nth-of-type(1) {
             animation-delay: 0.2s;
         }
         .category:nth-of-type(2) {
             animation-delay: 0.4s;
         }
-        
+         .category:nth-of-type(3) {
+            animation-delay: 0.6s;
+        }
+
         .category h2 {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 20px;
-            text-align: left;
             color: var(--secondary-text);
+            /* PERUBAHAN DARI KODE LAMA ANDA: 
+              Judul section kini selalu di tengah.
+            */
+            text-align: center; 
         }
 
         /* --- Grid Menu --- */
         .grid-menu {
             display: grid;
+            /* KUNCI UTAMA: 
+              Selalu 2 kolom, baik di desktop maupun mobile.
+            */
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
@@ -94,9 +104,11 @@
             gap: 15px;
             box-shadow: 0 4px 15px var(--shadow-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 140px; /* Menjaga tinggi tetap konsisten */
         }
 
         .menu-item:hover {
+            /* Efek hover dinamis dari kode lama Anda */
             transform: translateY(-8px) scale(1.05);
             box-shadow: 0 8px 25px var(--shadow-color);
         }
@@ -109,12 +121,13 @@
         .menu-item span {
             font-weight: 600;
             font-size: 1rem;
+            line-height: 1.3;
         }
 
         /* --- Tombol Utama --- */
         .main-button {
             display: inline-block;
-            background-color: white;
+            background-color: white; /* Tetap putih agar kontras */
             color: var(--button-text);
             font-weight: 700;
             font-size: 1rem;
@@ -126,7 +139,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.6s;
+            animation-delay: 0.8s; /* Muncul setelah section terakhir */
         }
 
         .main-button:hover {
@@ -165,14 +178,21 @@
             
             .category h2 {
                 font-size: 1.2rem;
-                text-align: center;
             }
 
             .grid-menu {
-                grid-template-columns: 1fr; /* Mengubah grid menjadi 1 kolom */
-                gap: 15px;
+                /* PERUBAHAN DARI KODE LAMA ANDA: 
+                  Aturan 'grid-template-columns: 1fr;' DIHAPUS dari sini
+                  agar tetap 2 kolom di HP.
+                */
+                gap: 15px; /* Kurangi gap di HP */
             }
             
+            .menu-item {
+                padding: 20px 15px;
+                min-height: 120px;
+            }
+
             .menu-item span {
                 font-size: 0.9rem;
             }
@@ -195,7 +215,7 @@
                     <span>Aplikasi Cek Barang</span>
                 </a>
                 <a href="https://yanoshijapan.github.io/admincekbarang/" target="_blank" class="menu-item">
-                     <img src="https://api.iconify.design/ph:chart-bar-duotone.svg?color=white" alt="Ikon Dashboard Cek Barang">
+                    <img src="https://api.iconify.design/ph:chart-bar-duotone.svg?color=white" alt="Ikon Dashboard Cek Barang">
                     <span>Dashboard Admin</span>
                 </a>
             </div>
@@ -206,11 +226,11 @@
             <div class="grid-menu">
                 <a href="https://yanoshijapan.github.io/cekbayarjastip/" target="_blank" class="menu-item">
                     <img src="https://api.iconify.design/ph:receipt-duotone.svg?color=white" alt="Ikon Dashboard Penerbitan Invoice">
-                    <span>Dashboard Penerbitan</span>
-                </a>       
+                    <span>Dashboard Penerbitan Invoice</span>
+                </a>        
                 <a href="https://yanoshijapan.github.io/kiriminvoice/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:truck-duotone.svg?color=white" alt="Ikon Dashboard Admin Pengiriman">
-                    <span>Dashboard Admin Pengiriman</span>
+                    <img src="https://api.iconify.design/ph:paper-plane-duotone.svg?color=white" alt="Ikon Dashboard Admin Pengiriman">
+                    <span>Dashboard Pengiriman Invoice</span>
                 </a>          
             </div>
         </section>
@@ -229,9 +249,11 @@
             </div>
         </section>
         
-        <a href="https://docs.google.com/spreadsheets/d/15CtlzSn56c1oTL_FhayaumWPb6ZVXlE4b7GZ040_QH0/edit?gid=1011295621#gid=1011295621" class="main-button">Lihat Database</a>
+        <!-- Tombol "Lihat Database" dari kode lama Anda -->
+        <a href="https://docs.google.com/spreadsheets/d/15CtlzSn56c1oTL_FhayaumWPb6ZVXlE4b7GZ040_QH0/edit?gid=1011295621#gid=1011295621" target="_blank" rel="noopener noreferrer" class="main-button">Lihat Database</a>
 
     </div>
 
 </body>
 </html>
+
