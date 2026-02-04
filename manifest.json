@@ -1,0 +1,21 @@
+{
+  "name": "Yanoshi Japan Portal",
+  "short_name": "Yanoshi Portal",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://yanoshijapan.github.io/asetonline/jastiplogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://yanoshijapan.github.io/asetonline/jastiplogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
