@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yanoshi Jastip Portal</title>
+		<link rel="manifest" href="manifest.json">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="Yanoshi Portal">
+		<link rel="apple-touch-icon" href="https://yanoshijapan.github.io/asetonline/jastiplogo.png">
+		
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -565,5 +572,19 @@
         function calc_openImageViewer(src) { document.getElementById('calc-zoomed-image').src = src; document.getElementById('calc-image-viewer').classList.add('show'); }
         function calc_closeImageViewer() { document.getElementById('calc-image-viewer').classList.remove('show'); }
     </script>
+		<script>
+				// PWA Service Worker Registration
+				if ('serviceWorker' in navigator) {
+						window.addEventListener('load', () => {
+								navigator.serviceWorker.register('./service-worker.js')
+										.then(registration => {
+												console.log('ServiceWorker registration successful');
+										})
+										.catch(err => {
+												console.log('ServiceWorker registration failed: ', err);
+										});
+						});
+				}
+		</script>
 </body>
 </html>
