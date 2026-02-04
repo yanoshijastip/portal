@@ -1,6 +1,6 @@
 {
-  "name": "Yanoshi Japan Portal",
-  "short_name": "Yanoshi Portal",
+  "name": "Admin Jastip",
+  "short_name": "Admin Jastip",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
