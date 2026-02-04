@@ -3,257 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Admin Yanoshi Jastip</title>
+    <title>Yanoshi Jastip - Portal Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- Import Font dari Google --- */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-        /* --- Variabel Warna & Reset CSS --- */
-        :root {
-            --bg-color: #121212;
-            --card-color: #1e1e1e;
-            --primary-text: #ffffff;
-            --secondary-text: #b3b3b3;
-            --accent-color: #1db954; /* Alternatif: #3498db */
-            --shadow-color: rgba(0, 0, 0, 0.5);
-            --button-text: #000000;
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Animasi Modal */
+        .modal {
+            transition: opacity 0.25s ease;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* --- Gaya Dasar Body --- */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-color);
-            color: var(--primary-text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* --- Kontainer Utama --- */
-        .container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease-out forwards;
-        }
-
-        /* --- Gaya Kategori Menu --- */
-        .category {
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        /* Animasi delay untuk setiap section */
-        .category:nth-of-type(1) {
-            animation-delay: 0.2s;
-        }
-        .category:nth-of-type(2) {
-            animation-delay: 0.4s;
-        }
-         .category:nth-of-type(3) {
-            animation-delay: 0.6s;
-        }
-
-        .category h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--secondary-text);
-            /* PERUBAHAN DARI KODE LAMA ANDA: 
-              Judul section kini selalu di tengah.
-            */
-            text-align: center; 
-        }
-
-        /* --- Grid Menu --- */
-        .grid-menu {
-            display: grid;
-            /* KUNCI UTAMA: 
-              Selalu 2 kolom, baik di desktop maupun mobile.
-            */
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        /* --- Item Menu (Kotak) --- */
-        .menu-item {
-            background: var(--card-color);
-            padding: 25px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--primary-text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 140px; /* Menjaga tinggi tetap konsisten */
-        }
-
-        .menu-item:hover {
-            /* Efek hover dinamis dari kode lama Anda */
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 8px 25px var(--shadow-color);
-        }
-
-        .menu-item img {
-            width: 50px;
-            height: 50px;
-        }
-
-        .menu-item span {
-            font-weight: 600;
-            font-size: 1rem;
-            line-height: 1.3;
-        }
-
-        /* --- Tombol Utama --- */
-        .main-button {
-            display: inline-block;
-            background-color: white; /* Tetap putih agar kontras */
-            color: var(--button-text);
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.8s; /* Muncul setelah section terakhir */
-        }
-
-        .main-button:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 6px 20px var(--shadow-color);
-        }
-
-        /* --- Animasi --- */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        body.modal-active {
+            overflow-y: hidden;
         }
         
-        /* --- Desain Responsif untuk Mobile --- */
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            
-            .category h2 {
-                font-size: 1.2rem;
-            }
-
-            .grid-menu {
-                /* PERUBAHAN DARI KODE LAMA ANDA: 
-                  Aturan 'grid-template-columns: 1fr;' DIHAPUS dari sini
-                  agar tetap 2 kolom di HP.
-                */
-                gap: 15px; /* Kurangi gap di HP */
-            }
-            
-            .menu-item {
-                padding: 20px 15px;
-                min-height: 120px;
-            }
-
-            .menu-item span {
-                font-size: 0.9rem;
-            }
+        /* Glassmorphism Card Hover */
+        .dashboard-card {
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
         }
-
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-slate-800 min-h-screen flex flex-col">
 
-    <div class="container">
-        <header>
-            <h1>Portal Admin Jastip Yanoshi</h1>
-        </header>
-
-        <section class="category">
-            <h2>Cek Barang</h2>
-            <div class="grid-menu">
-                <a href="https://cekbarang.netlify.app/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:package-duotone.svg?color=white" alt="Ikon Aplikasi Cek Barang">
-                    <span>Aplikasi Cek Barang</span>
-                </a>
-                <a href="https://yanoshijapan.github.io/admincekbarang/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:chart-bar-duotone.svg?color=white" alt="Ikon Dashboard Cek Barang">
-                    <span>Dashboard Admin</span>
-                </a>
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img class="h-10 w-auto object-contain" src="https://yanoshijapan.github.io/asetonline/jastiplogo.png" alt="Yanoshi Logo">
+                </div>
+                <div>
+                    <a href="https://jastipyanoshi.netlify.app/" target="_blank" class="inline-flex items-center justify-center px-5 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-slate-900 hover:bg-slate-800 transition shadow-lg hover:shadow-xl ring-offset-2 focus:ring-2 ring-slate-900">
+                        Buka Website <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
+    </header>
 
-        <section class="category">
-            <h2>Dashboard Invoice</h2>
-            <div class="grid-menu">
-                <a href="https://yanoshijapan.github.io/cekbayarjastip/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:receipt-duotone.svg?color=white" alt="Ikon Dashboard Penerbitan Invoice">
-                    <span>Dashboard Penerbitan Invoice</span>
-                </a>        
-                <a href="https://yanoshijapan.github.io/kiriminvoice/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:paper-plane-duotone.svg?color=white" alt="Ikon Dashboard Admin Pengiriman">
-                    <span>Dashboard Pengiriman Invoice</span>
-                </a>          
-            </div>
-        </section>
-
-        <section class="category">
-            <h2>Website dan Live Chat</h2>
-            <div class="grid-menu">
-                <a href="https://yanoshijastip.github.io/admin/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:chats-circle-duotone.svg?color=white" alt="Ikon Admin Live Chat">
-                    <span>Admin Live Chat</span>
-                </a>
-                <a href="https://jastipyanoshi.netlify.app/" target="_blank" class="menu-item">
-                    <img src="https://api.iconify.design/ph:globe-duotone.svg?color=white" alt="Ikon Buka Website">
-                    <span>Buka Website</span>
-                </a>
-            </div>
-        </section>
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         
-        <!-- Tombol "Lihat Database" dari kode lama Anda -->
-        <a href="https://docs.google.com/spreadsheets/d/15CtlzSn56c1oTL_FhayaumWPb6ZVXlE4b7GZ040_QH0/edit?gid=1011295621#gid=1011295621" target="_blank" rel="noopener noreferrer" class="main-button">Lihat Database</a>
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">Selamat Datang</h1>
+            <p class="text-slate-500">Pilih menu untuk memulai.</p>
+        </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <button onclick="openModal('modal-cekbarang')" class="dashboard-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center group cursor-pointer h-full">
+                <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800">Cek Barang</h3>
+                <p class="text-sm text-slate-400 mt-2">Cek barang Indo & Jepang</p>
+            </button>
+
+            <button onclick="openModal('modal-invoice')" class="dashboard-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center group cursor-pointer h-full">
+                <div class="w-14 h-14 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800">Invoice & Bayar</h3>
+                <p class="text-sm text-slate-400 mt-2">Cek pembayaran & kirim tagihan</p>
+            </button>
+
+            <button onclick="openModal('modal-belanja')" class="dashboard-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center group cursor-pointer h-full">
+                <div class="w-14 h-14 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800">Belanja</h3>
+                <p class="text-sm text-slate-400 mt-2">Input link & checkout</p>
+            </button>
+
+            <button onclick="openModal('modal-spreadsheet')" class="dashboard-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center group cursor-pointer h-full">
+                <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-table-list"></i>
+                </div>
+                <h3 class="font-bold text-lg text-slate-800">Database</h3>
+                <p class="text-sm text-slate-400 mt-2">Akses Spreadsheet Utama</p>
+            </button>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto py-6 px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 Yanoshi Jastip. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="modal-cekbarang" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-cekbarang')"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl shadow-2xl z-50 overflow-y-auto transform scale-95 transition-transform duration-300">
+            <div class="modal-content py-6 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-slate-800">Cek Barang</p>
+                    <div class="modal-close cursor-pointer z-50 text-slate-400 hover:text-slate-800" onclick="closeModal('modal-cekbarang')">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <a href="https://yanoshijapan.github.io/cekindojepang/" target="_blank" class="w-full bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Cek Barang Indo - Jepang</span>
+                        <i class="fa-solid fa-plane-departure group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="https://yanoshijapan.github.io/inputjepangindo/" target="_blank" class="w-full bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Cek Barang Jepang - Indo</span>
+                        <i class="fa-solid fa-plane-arrival group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div id="modal-invoice" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-invoice')"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl shadow-2xl z-50 overflow-y-auto transform scale-95 transition-transform duration-300">
+            <div class="modal-content py-6 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-slate-800">Keuangan</p>
+                    <div class="modal-close cursor-pointer z-50 text-slate-400 hover:text-slate-800" onclick="closeModal('modal-invoice')">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 mt-4">
+                    <a href="https://yanoshijapan.github.io/cekbayarjastip/" target="_blank" class="w-full bg-green-50 hover:bg-green-600 hover:text-white text-green-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Cek Pembayaran</span>
+                        <i class="fa-solid fa-magnifying-glass-dollar group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="https://yanoshijapan.github.io/kiriminvoice/" target="_blank" class="w-full bg-green-50 hover:bg-green-600 hover:text-white text-green-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Kirim Invoice</span>
+                        <i class="fa-solid fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-belanja" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-belanja')"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl shadow-2xl z-50 overflow-y-auto transform scale-95 transition-transform duration-300">
+            <div class="modal-content py-6 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-slate-800">Belanja</p>
+                    <div class="modal-close cursor-pointer z-50 text-slate-400 hover:text-slate-800" onclick="closeModal('modal-belanja')">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 mt-4">
+                    <a href="https://yanoshijapan.github.io/linkbelanja/" target="_blank" class="w-full bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Belanja & Input Link</span>
+                        <i class="fa-solid fa-link group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="https://yanoshijapan.github.io/checkoutjastip/" target="_blank" class="w-full bg-purple-50 hover:bg-purple-600 hover:text-white text-purple-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Checkout Link</span>
+                        <i class="fa-solid fa-bag-shopping group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-spreadsheet" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-spreadsheet')"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl shadow-2xl z-50 overflow-y-auto transform scale-95 transition-transform duration-300">
+            <div class="modal-content py-6 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-slate-800">Spreadsheet</p>
+                    <div class="modal-close cursor-pointer z-50 text-slate-400 hover:text-slate-800" onclick="closeModal('modal-spreadsheet')">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 mt-4">
+                    <a href="https://docs.google.com/spreadsheets/d/15CtlzSn56c1oTL_FhayaumWPb6ZVXlE4b7GZ040_QH0/edit?gid=0#gid=0" target="_blank" class="w-full bg-orange-50 hover:bg-orange-600 hover:text-white text-orange-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Spreadsheet Utama</span>
+                        <i class="fa-solid fa-table group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets/d/1jZGl8WzxS5y3U2HVSUKVj8Bos-C8laZCRlQbXtvoY0Y/edit?gid=175322993#gid=175322993" target="_blank" class="w-full bg-orange-50 hover:bg-orange-600 hover:text-white text-orange-700 font-semibold py-3 px-4 rounded-xl transition duration-300 flex items-center justify-between group">
+                        <span>Spreadsheet Jepang</span>
+                        <i class="fa-solid fa-file-csv group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalID) {
+            const modal = document.getElementById(modalID);
+            const container = modal.querySelector('.modal-container');
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('modal-active');
+            
+            // Animasi masuk (Scale up)
+            setTimeout(() => {
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modalID) {
+            const modal = document.getElementById(modalID);
+            const container = modal.querySelector('.modal-container');
+
+            // Animasi keluar (Scale down)
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                document.body.classList.remove('modal-active');
+            }, 300);
+        }
+
+        // Menutup modal dengan tombol ESC
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            if (evt.keyCode == 27) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if(!modal.classList.contains('opacity-0')) {
+                        const id = modal.getAttribute('id');
+                        closeModal(id);
+                    }
+                });
+            }
+        };
+    </script>
 </body>
 </html>
-
