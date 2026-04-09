@@ -36,13 +36,11 @@
         .tab-inactive { color: #94a3b8; }
 
         /* === STYLE KHUSUS KALKULATOR (ADAPTASI DARI FILE ASLI) === */
-        /* Kita bungkus dengan ID #calculator-scope agar tidak merusak dashboard luar */
         #calculator-scope {
             font-family: 'Poppins', sans-serif;
             color: #333;
             line-height: 1.6;
             position: relative;
-            /* Background Animation Asli */
             background: linear-gradient(45deg, #e6f7ff, #fdf8e1, #e6f7ff, #fdf8e1);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -52,10 +50,8 @@
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* Header Asli Kalkulator */
         #calculator-scope .app-header {
-            position: sticky; /* Ubah fixed jadi sticky agar tetap di dalam modal */
-            top: 0; left: 0; width: 100%;
+            position: sticky; top: 0; left: 0; width: 100%;
             display: flex; justify-content: space-between; align-items: center;
             padding: 1rem 5%; background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -73,10 +69,9 @@
         }
         #calculator-scope .header-button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(240, 169, 45, 0.6); }
 
-        /* Container & Card Asli */
         #calculator-scope .container {
             display: flex; justify-content: center; align-items: flex-start;
-            padding: 2rem 1rem; /* Padding disesuaikan untuk modal */
+            padding: 2rem 1rem;
         }
 
         #calculator-scope .calculator-card {
@@ -89,7 +84,6 @@
 
         #calculator-scope h1 { color: #076eb3; text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700; }
 
-        /* Form Elements Asli */
         #calculator-scope .form-group { margin-bottom: 1.5rem; position: relative; }
         #calculator-scope label { display: block; color: #076eb3; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
         #calculator-scope input, #calculator-scope select {
@@ -101,7 +95,6 @@
         }
         #calculator-scope input[readonly] { background-color: #f4f7f9; cursor: not-allowed; color: #888; }
 
-        /* Dropdown Search Asli */
         #calculator-scope .dropdown { position: relative; }
         #calculator-scope .dropdown-content {
             display: none; position: absolute; background-color: #ffffff; min-width: 100%;
@@ -119,7 +112,6 @@
         }
         #calculator-scope .calculate-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(7, 110, 179, 0.6); }
 
-        /* Modal Hasil & Image Viewer Asli (Scoped) */
         #calculator-scope .internal-modal {
             position: absolute; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center;
@@ -144,6 +136,12 @@
         }
         #calculator-scope .image-viewer-modal.show { display: flex; }
         #calculator-scope .zoomed-image { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+        /* Custom Scrollbar for Notification */
+        .notif-scroll::-webkit-scrollbar { width: 6px; }
+        .notif-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+        .notif-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        .notif-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800 min-h-screen flex flex-col">
@@ -203,6 +201,22 @@
                 <p class="text-sm sm:text-base text-slate-500">Silakan pilih menu di bawah ini</p>
             </div>
 
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-bell text-yellow-500"></i> Aktivitas Form Terbaru</h2>
+                    <button onclick="fetchNotifications()" class="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors">
+                        <i class="fa-solid fa-rotate-right"></i> Refresh
+                    </button>
+                </div>
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden h-56 relative notif-scroll overflow-y-auto">
+                    <div id="notif-loader" class="absolute inset-0 bg-white/90 z-10 flex flex-col items-center justify-center transition-opacity">
+                        <div class="loader mb-2" style="border-width: 3px; border-top-color: #3b82f6;"></div>
+                        <span class="text-xs text-slate-400 font-medium tracking-wide">Mengecek data baru...</span>
+                    </div>
+                    <div id="notif-list" class="p-4 flex flex-col gap-3">
+                        </div>
+                </div>
+            </div>
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
                 <button onclick="openModal('modal-cekbarang')" class="dashboard-card bg-white p-4 sm:p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center group cursor-pointer h-full"><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors"><i class="fa-solid fa-box-open"></i></div><h3 class="font-bold text-sm sm:text-lg text-slate-800">Cek Barang</h3></button>
                 <button onclick="openModal('modal-invoice')" class="dashboard-card bg-white p-4 sm:p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center group cursor-pointer h-full"><div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-xl mb-3 group-hover:bg-green-600 group-hover:text-white transition-colors"><i class="fa-solid fa-file-invoice-dollar"></i></div><h3 class="font-bold text-sm sm:text-lg text-slate-800">Invoice</h3></button>
@@ -408,6 +422,7 @@
             </div>
         </div>
     </div>
+    
     <div id="modal-settings" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50"><div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-settings')"></div><div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl shadow-2xl z-50 overflow-y-auto transform scale-95 transition-transform duration-300"><div class="modal-content py-6 px-6"><div class="flex justify-between items-center pb-3 border-b mb-4"><p class="text-xl font-bold text-slate-800">Pengaturan Akun</p><button onclick="closeModal('modal-settings')"><i class="fa-solid fa-xmark text-xl text-slate-400"></i></button></div><form onsubmit="handleUpdateAccount(event)" class="space-y-4"><div><label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Username Baru</label><input type="text" id="new-username" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-slate-800 focus:ring-0 outline-none" required></div><div><label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Password Baru</label><div class="relative"><input type="password" id="new-password" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-slate-800 focus:ring-0 outline-none pr-10" required><button type="button" onclick="togglePassword('new-password', 'eye-settings')" class="absolute right-3 top-3 text-gray-400 hover:text-slate-600"><i id="eye-settings" class="fa-solid fa-eye"></i></button></div></div><div id="update-msg" class="text-sm text-center hidden"></div><button type="submit" id="btn-update" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition flex justify-center items-center gap-2"><span>Simpan Perubahan</span><div id="update-spinner" class="loader hidden" style="border-top-color: white;"></div></button></form></div></div></div>
     <div id="modal-cekbarang" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50"><div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-cekbarang')"></div><div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl p-6"><div class="flex justify-between mb-4"><h3 class="font-bold text-xl">Cek Barang</h3><button onclick="closeModal('modal-cekbarang')"><i class="fa-solid fa-xmark"></i></button></div><div class="flex flex-col gap-3"><a href="https://yanoshijapan.github.io/cekindojepang/" target="_blank" class="block bg-blue-50 p-3 rounded-lg text-blue-700 font-bold">Indo-Jepang</a><a href="https://yanoshijapan.github.io/inputjepangindo/" target="_blank" class="block bg-blue-50 p-3 rounded-lg text-blue-700 font-bold">Jepang-Indo</a></div></div></div>
     <div id="modal-invoice" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50"><div class="modal-overlay absolute w-full h-full bg-slate-900 opacity-50 backdrop-blur-sm" onclick="closeModal('modal-invoice')"></div><div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-2xl p-6"><div class="flex justify-between mb-4"><h3 class="font-bold text-xl">Invoice</h3><button onclick="closeModal('modal-invoice')"><i class="fa-solid fa-xmark"></i></button></div><div class="flex flex-col gap-3"><a href="https://yanoshijapan.github.io/cekbayarjastip/" target="_blank" class="block bg-green-50 p-3 rounded-lg text-green-700 font-bold">Cek Bayar</a><a href="https://yanoshijapan.github.io/kiriminvoice/" target="_blank" class="block bg-green-50 p-3 rounded-lg text-green-700 font-bold">Kirim Invoice</a></div></div></div>
@@ -417,33 +432,88 @@
     <script>
         const APPSCRIPT_AUTH_URL = "https://script.google.com/macros/s/AKfycbxJeVXmIQj2qXcVhuYv423e9v-s82nfWniexh-OO63JQHw6yPpycGNtIj29ETrS8npV/exec"; 
         const APPSCRIPT_DATA_URL = "https://script.google.com/macros/s/AKfycbzVpSR-SovszpbuMorHulaygazCD8sa-nzTDAN0AsmrjedHpNUwXoYScp4bGW36K-CP/exec"; 
+        
+        // PASTE URL WEB APP BARU UNTUK NOTIFIKASI DI BAWAH INI
+        const NOTIF_APPSCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ6bKhdYmnsG18m-F65C8CWKFEtqc_f6xfv0JU6VD9O0GwHlNJhDzcgku4LMH0FX-GEw/exec"; 
 
         // === 1. SYSTEM LOGIC (DASHBOARD) ===
         window.addEventListener('load', function() {
 		    const storedUser = localStorage.getItem('yanoshiUser');
 		    const loader = document.getElementById('initial-loader');
 		
-		    // Beri sedikit jeda 800ms agar logo terlihat (estetika), lalu cek login
 		    setTimeout(() => {
-		        // Efek fade out
 		        loader.classList.add('opacity-0');
-		        
-		        // Hapus loader dari layar setelah animasi selesai
 		        setTimeout(() => {
 		            loader.classList.add('hidden');
-		            
 		            if (storedUser) {
 		                showDashboard(storedUser);
 		            } else {
 		                showLogin();
 		            }
-		        }, 500); // Waktu untuk transisi opacity
+		        }, 500); 
+		    }, 800); 
 		
-		    }, 800); // Durasi minimal splash screen tampil
-		
-		    // Init Kalkulator
 		    calc_populateDropdown(); 
 		});
+
+        // ======== FUNGSI BARU: TARIK NOTIFIKASI ========
+        async function fetchNotifications() {
+            const listContainer = document.getElementById('notif-list');
+            const loader = document.getElementById('notif-loader');
+            
+            // Tampilkan loader setiap kali refresh
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+
+            try {
+                const response = await fetch(NOTIF_APPSCRIPT_URL);
+                const result = await response.json();
+
+                // Sembunyikan loader
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+
+                if (result.status === 'success' && result.data.length > 0) {
+                    listContainer.innerHTML = result.data.map(item => {
+                        // Variasi styling berdasar tipe sheet
+                        const isIndoJapan = item.formType === 'Indo-Japan';
+                        const iconBg = isIndoJapan ? 'bg-red-50 text-red-500 border-red-100' : 'bg-blue-50 text-blue-500 border-blue-100';
+                        const formColor = isIndoJapan ? 'text-red-600' : 'text-blue-600';
+                        const planeIcon = isIndoJapan ? 'fa-plane-departure' : 'fa-plane-arrival';
+
+                        return `
+                        <div class="flex items-start gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white transition duration-200 shadow-sm group">
+                            <div class="mt-1 flex-shrink-0 w-8 h-8 rounded-full border ${iconBg} flex items-center justify-center transition-transform group-hover:scale-110">
+                                <i class="fa-solid ${planeIcon} text-[13px]"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-[13px] sm:text-sm text-slate-700 leading-snug">
+                                    <span class="font-bold text-slate-900">${item.name}</span> baru saja mengisi Form 
+                                    <span class="font-bold ${formColor}">${item.formType}</span>
+                                </p>
+                                <p class="text-[11px] text-slate-400 mt-1 font-medium"><i class="fa-regular fa-calendar-check mr-1"></i> ${item.date}</p>
+                            </div>
+                        </div>`;
+                    }).join('');
+                } else {
+                    listContainer.innerHTML = `
+                        <div class="h-full flex flex-col items-center justify-center text-slate-400 py-6">
+                            <i class="fa-solid fa-inbox text-3xl mb-2 opacity-50"></i>
+                            <p class="text-sm">Belum ada aktivitas terbaru.</p>
+                        </div>`;
+                }
+            } catch (error) {
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+                listContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-red-400 py-6">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-2 opacity-50"></i>
+                        <p class="text-sm">Gagal memuat notifikasi.</p>
+                    </div>`;
+                console.error("Error fetching notifications:", error);
+            }
+        }
+        // ===============================================
 
         function togglePassword(inputId, iconId) {
             const input = document.getElementById(inputId); const icon = document.getElementById(iconId);
@@ -473,7 +543,16 @@
             });
         }
 
-        function showDashboard(username) { document.getElementById('login-section').classList.add('hidden'); document.getElementById('dashboard-section').classList.remove('hidden'); document.getElementById('dashboard-section').classList.add('flex'); document.getElementById('display-username').textContent = username; }
+        function showDashboard(username) { 
+            document.getElementById('login-section').classList.add('hidden'); 
+            document.getElementById('dashboard-section').classList.remove('hidden'); 
+            document.getElementById('dashboard-section').classList.add('flex'); 
+            document.getElementById('display-username').textContent = username; 
+            
+            // Panggil notifikasi saat dashboard terbuka
+            fetchNotifications();
+        }
+        
         function showLogin() { document.getElementById('login-section').classList.remove('hidden'); document.getElementById('dashboard-section').classList.add('hidden'); document.getElementById('dashboard-section').classList.remove('flex'); }
         function handleLogout() { if(confirm('Keluar?')) { localStorage.removeItem('yanoshiUser'); location.reload(); } }
         function toggleDropdown() { const m = document.getElementById('user-dropdown'); m.classList.toggle('dropdown-hidden'); m.classList.toggle('dropdown-visible'); }
@@ -510,9 +589,7 @@
             Array.from(document.getElementById(active).children).forEach(c => { const t = c.querySelector('h3').textContent.toLowerCase(); c.style.display = t.includes(v) ? '' : 'none'; });
         }
 
-        // === 3. LOGIKA KALKULATOR JASTIP (ASLI & LENGKAP) ===
-        // Prefix "calc_" digunakan untuk menghindari konflik variable dengan dashboard
-        
+        // === 3. LOGIKA KALKULATOR JASTIP ===
         const calc_tierGroup1 = [{ maxWeight: 2, cost: 2020 }, { maxWeight: 5, cost: 2300 }, { maxWeight: 10, cost: 2610 }, { maxWeight: 15, cost: 3170 }, { maxWeight: 20, cost: 3810 }, { maxWeight: 25, cost: 4190 }, { maxWeight: 30, cost: 5780 }, { maxWeight: Infinity, cost: 7100 }];
         const calc_tierGroup2 = [{ maxWeight: 2, cost: 1620 }, { maxWeight: 5, cost: 1910 }, { maxWeight: 10, cost: 2210 }, { maxWeight: 15, cost: 2730 }, { maxWeight: 20, cost: 3340 }, { maxWeight: 25, cost: 3720 }, { maxWeight: 30, cost: 5040 }, { maxWeight: Infinity, cost: 5970 }];
         const calc_tierGroup3 = [{ maxWeight: 2, cost: 1500 }, { maxWeight: 5, cost: 1790 }, { maxWeight: 10, cost: 2090 }, { maxWeight: 15, cost: 2600 }, { maxWeight: 20, cost: 3190 }, { maxWeight: 25, cost: 3580 }, { maxWeight: 30, cost: 4240 }, { maxWeight: Infinity, cost: 5030 }];
@@ -655,7 +732,6 @@
         function calc_closeImageViewer() { document.getElementById('calc-image-viewer').classList.remove('show'); }
     </script>
 		<script>
-				// PWA Service Worker Registration
 				if ('serviceWorker' in navigator) {
 						window.addEventListener('load', () => {
 								navigator.serviceWorker.register('./service-worker.js')
